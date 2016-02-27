@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SteamHome {% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.deep_purple-indigo.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Roboto">
+    <link rel="stylesheet" href="/styles/vendor.css">
+
+  </head>
+
+<body {% block bodytags %}{% endblock %}>
+  <div class="layout-transparent mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title"><a href="/">SteamHome</a> <span class="appName"></span></span>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        {% block userNav %}
+          <a href="/auth" class="mdl-navigation__link" id="userNav">
+            {% if steam %}
+              {% if user && user._json.steamid == steam.steamid %}
+                <i class="icon-steam"></i>
+              {% endif %}
+                {{ steam.personaname }}
+            {% elseif user %}
+                {{ user.displayName }}
+            {% else %}
+              Login
+            {% endif %}
+          </a>
+        {% endblock %}
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">SteamHome</span>
+      <span class="mdl-typography--caption appName"></span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="/suggest/{{steam.gameid}}">
+          <i class="material-icons" role="presentation">rate_review</i> Suggest Links</a>
+        <a class="mdl-navigation__link" href="https://reddit.com/r/steamhome">
+          <i class="material-icons" role="presentation">feedback</i>Feedback</a>
+      </nav>
+      <nav class="mdl-navigation footer">
+        <a class="mdl-navigation__link user" href="/auth">
+          <i class="material-icons" role="presentation">account_circle</i> {% block menuUser %}
+          {% if user %}
+              {{ user.displayName }}
+          {% else %}
+            Login with Steam
+          {% endif %}
+          {% endblock %}</a>
+        <a class="mdl-navigation__link" href="/welcome">
+          <i class="material-icons" role="presentation">info</i> About SteamHome</a>
+        <a class="mdl-navigation__link" href="http://steampowered.com">
+          <i class="material-icons" role="presentation">power</i> Powered by Steam</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet"></div>
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+
+        {% block content%}
+
+        {% endblock %}
+
+      </div>
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet"></div>
+    </div>
+
+    </main>
+
+    {% block footer %}
+
+    {% endblock %}
+
+  </div>
+
+  <script>
+    (function(g,a,b,e,n,h,l){g['GoogleAnalyticsObject']=n;g[n]=g[n]||function(){
+    (g[n].q=g[n].q||[]).push(arguments)},g[n].l=1*new Date();h=a.createElement(b),
+    l=a.getElementsByTagName(b)[0];h.async=1;h.src=e;l.parentNode.insertBefore(h,l)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UIDHERE', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+    <script src="/scripts/vendor.js"></script>
+    <script src="/scripts/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+{% extends '../layout.html' %}
+
+{% block title %}&middot; Login{% endblock %}
+{% block bodytags %}class="login"{% endblock %}
+
+{% block userNav %}
+{% endblock %}
+
+{% block content %}
+
+<div class="welcome">
+  <h4 class="mdl-typography--text-center">Login via Steam or use your Community URL</h4>
+
+  <div class="mdl-grid">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Login with Steam</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          {% if user %}
+            You are currently logged in with Steam as <a href="{{ user._json.profileurl }}">{{ user.displayName }}</a><br>
+            Your profile is currently {% if user._json.communityvisibilitystate == 3 %} public {% else %} private {% endif %}<br><br>
+            Your dedicated SteamHome URL is <code><a class="" href="https://steamho.me/id/{{profileurl}}">https://steamho.me/id/{{profileurl}}</a></code>
+            {% else %}
+          Login with Steam to get automatic game detection on the homepage without your Community URL or ID. Plus, get early &amp; exclusive access to new features!
+          {% endif %}
+        </div>
+        <div class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+          {% if user %}
+            <a href="/auth/logout" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              Logout
+            </a>
+          {% else %}
+          <a href="/auth/steam" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            <img src="/images/sits_small.png">
+          </a>
+          {% endif %}
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Use your Community URL</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          Set your In-Game homepage to your dedicated SteamHome URL. Enter your Steam Community Profile URL below
+          {% if error == 'profileid' %}
+            <br><br>That doesn't appear to be a valid Steam Community URL!<br>
+            You can enter your profile url as any of the following and we'll send you off to your dedicated SteamHome URL<br><br>
+            'http://steamcommunity.com/id/yoururl'<br>
+            'http://steamcommunity.com/profile/yourid'<br>
+            'yoururl'
+          {% endif %}
+        </div>
+        <div class="mdl-card__actions mdl-card--border  mdl-typography--text-center">
+          <form id="getID">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="idQuery" />
+              <label class="mdl-textfield__label" for="idQuery">http://steamcommunity.com/id/yoururl</label>
+            </div>
+          </form>
+        </div>
+    </div>
+    {% if error == 'suggestlogin'%}
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small">
+      <div class="mdl-card__supporting-text">
+        You must login with Steam to suggest links
+      </div>
+      <div class="mdl-card__menu">
+          <i class="material-icons">info</i>
+      </div>
+    </div>
+    {% endif %}
+    {% if error == 'userlinks'%}
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small">
+      <div class="mdl-card__supporting-text">
+        You must login with Steam to save personal links
+      </div>
+      <div class="mdl-card__menu">
+          <i class="material-icons">info</i>
+      </div>
+    </div>
+    {% endif %}
+    {% if user._json.communityvisibilitystate !== 3 %}
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small">
+      <div class="mdl-card__supporting-text">
+        In order to detect your current game, your Steam Community Profile must be public
+      </div>
+      <div class="mdl-card__menu">
+          <i class="material-icons">info</i>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

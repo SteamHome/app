@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block title %}&middot; Custom Steam Homepages{% endblock %}
+{% block bodytags %}class="welcome"{% endblock %}
+
+{% block userNav %}
+{% if !user %}
+<a href="/auth" class="mdl-navigation__link">Login</a>
+{% endif %}
+{% endblock %}
+
+{% block menuSuggest %}{% endblock %}
+
+{% block content %}
+
+  <div class="welcome mdl-typography--text-center">
+    <h2 class="">Custom Steam Homepages</h2>
+    <h5>Upgrade your Steam In-Game Browser</h5>
+
+    <video autoplay muted loop poster="images/csgoingame.jpg">
+      <source src="videos/steamhome.webm" type="video/webm">
+      <source src="videos/steamhome.mp4" type="video/mp4">
+    </video>
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small">
+        <div class="mdl-card__supporting-text">
+          SteamHome give you a custom home page for Steam's In-Game browser, automatically giving you <strong>content based on what you're playing</strong>
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp mdl-card__small">
+        <div class="mdl-card__supporting-text">
+          <strong>Quick Search</strong> your choice of sites, including Google, Youtube and Reddit
+        </div>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp mdl-card__small">
+        <div class="mdl-card__supporting-text">
+          <strong>Community sourced links</strong> for each game get you where you want to go
+        </div>
+      </div>
+
+      <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small login-card">
+        <a href="/auth" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent">
+          <i class="material-icons mdl-color-text--white" role="presentation">keyboard_arrow_right</i>
+          <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
+        </a>
+        <div class="mdl-card__supporting-text">
+          Sign in with Steam or use your Community Profile URL to get started!
+        </div>
+
+      </div>
+
+      <div class="mdl-cell mdl-cell--12-col">
+          Keep up to date on <a href="https://reddit.com/r/steamhome">r/SteamHome</a>
+          &middot; Email: <a href="mailto:zack@steamho.me">zack@steamho.me</a>
+          <br>Created by <a href="http://zackboe.hm">Zack Boehm</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+<!-- https://github.com/google/material-design-lite/issues/1155 -->
+<script>window.onload=function(){setTimeout(function(){document.getElementsByTagName('video')[0].play();},300);};</script>
+
+{% endblock %}

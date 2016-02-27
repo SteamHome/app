@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+There was an error!
+  {% if error == 'profileState' %}
+    Looks like your profile isn't set to public!
+  {% elseif error == 'profileid' %}
+    Looks like that isn't a valid vanity url!
+  {% else %}
+    And we have no idea what happened!
+  {% endif %}
+
+{% endblock %}

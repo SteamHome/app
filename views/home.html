@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+
+{% block bodytags %}
+  {% if steam.gameid %}
+    data-appid="{{steam.gameid}}" data-appname="{{steam.gameextrainfo}}" data-ingame="true"
+  {% else %}
+    data-ingame="false"
+  {% endif %}
+  class="game"
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="mdl-card mdl-shadow--2dp error-card error-appNotFound">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Sorry!</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        Looks like we couldn't find any data for <span class="appName">this game</span>!<br>
+        If you'd like, you can suggest some links for <span class="appName">this game</span>, and we'll work towards getting them setup for SteamHome!
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/suggest">
+          Suggest Links
+        </a>
+      </div>
+      <div class="mdl-card__menu">
+          <i class="material-icons">error</i>
+      </div>
+    </div>
+
+    <div class="mdl-card mdl-shadow--2dp error-card error-notPlaying">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Whoops!</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          Looks like you aren't playing a Steam game.
+          It can take Steam a short while to realize you're ingame, so try refreshing.<br>
+          If you're still seeing this error, let us know at <a href="https://reddit.com/r/steamhome">r/SteamHome</a>
+        </div>
+        <!-- <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="">
+            Refresh
+          </a>
+        </div> -->
+        <div class="mdl-card__menu">
+            <i class="material-icons">error</i>
+        </div>
+      </div>
+
+{% endblock %}
+
+{% block footer %}
+
+  <footer class="mdl-grid">
+
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone flex-list left">
+
+        <div class="mdl-card mdl-shadow--2dp userLinks">
+          <div class="mdl-card__title">
+            Saved Links
+          </div>
+          <div class="mdl-card__menu">
+            <a id="" class="mdl-button mdl-js-button mdl-button--icon" href="/userlinks">
+              <i class="material-icons">edit</i>
+            </a>
+          </div>
+          <div class="mdl-card__supporting-text">
+          {% if links.length != 0%}
+            {% for link in links %}
+              {% if Object.keys(link) != undefined%}
+                <a href="{{link[Object.keys(link)]}}">{{Object.keys(link)}}</a>
+              {% endif %}
+            {% endfor %}
+          {% elseif links == '' %}
+            Click the edit button add some custom links!
+          {% else %}
+            Sign in with Steam to add some custom links!
+          {% endif %}
+          </div>
+        </div>
+
+        <div class="mdl-card mdl-shadow--2dp quicklinks">
+          <div class="mdl-card__title">
+            <a class="mdl-button mdl-js-button mdl-button--icon" href="https://google.com"><i class="material-icons icon-google"></i></a>
+            <a class="mdl-button mdl-js-button mdl-button--icon" href="https://facebook.com"><i class="material-icons icon-facebook"></i></a>
+            <a class="mdl-button mdl-js-button mdl-button--icon" href="https://twitter.com"><i class="material-icons icon-twitter"></i></a>
+            <a class="mdl-button mdl-js-button mdl-button--icon" href="https://youtube.com"><i class="material-icons icon-youtube"></i></a>
+            <a class="mdl-button mdl-js-button mdl-button--icon" href="https://reddit.com"><i class="material-icons icon-reddit"></i></a>
+
+          </div>
+        </div>
+
+
+        <div class="mdl-card mdl-shadow--2dp search">
+          <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-top-right">
+            <li class="mdl-menu__item search__service" data-search="google"><i class="icon-google"></i> Google</li>
+            <li class="mdl-menu__item search__service" data-search="google images"><i class="icon-photo"></i>  Images</li>
+            <li class="mdl-menu__item search__service" data-search="youtube"><i class="icon-youtube-play"></i> Youtube</li>
+            <li class="mdl-menu__item search__service" data-search="reddit"><i class="icon-reddit"></i> Reddit</li>
+          </ul>
+          <div class="mdl-card__title">
+            <form id="search" action="#">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" id="searchQuery" autocomplete="off" tabindex="0" autofocus />
+                <label class="mdl-textfield__label" for="searchQuery"><i class="material-icons">search</i>Search <span id="searchLabel">Google</span></label>
+              </div>
+            </form>
+          </div>
+          <div class="mdl-card__menu">
+            <button id="demo-menu-top-right" class="mdl-button mdl-js-button mdl-button--icon">
+              <i class="material-icons">more_vert</i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <div class="mdl-cell mdl-cell--5-col mdl-cell--hide-tablet"></div>
+      <div class="flex-list mdl-typography--text-right mdl-cell mdl-cell--3-col links">
+
+      </div>
+  </footer>
+
+{% endblock %}

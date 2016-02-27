@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}&middot; Error!{% endblock %}
+{% block bodytags %}class="error"{% endblock %}
+
+{% block userNav %}
+{% endblock %}
+
+{% block content %}
+
+<div class="welcome">
+  <h4 class="mdl-typography--text-center">SteamHome has encountered an error.</h4>
+
+  <div class="mdl-grid">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__supporting-text">
+          {% if message == 'Not Found' %}
+          <h2 class="mdl-card__title-text">404 Not Found</h2><br><br>
+          <p>Fun fact: <a href="https://steamdb.info/app/404/" target="_blank">Steam App '404'</a> was once a seperate app for Portal in Russian!</p>
+          {% else %}
+          <h2 class="mdl-card__title-text">We ran into an issue processing your request:</h2>
+          <pre class="error">{{message}}</pre>
+          {% endif %}
+          {% if error.stack %}  <code>{{ error.status }}</code><hr><code>{{ error.stack }}</code> {% endif %}
+          <p>Please try again. If you continue to receive this error, please let us know.</p>
+        </div>
+        <div class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+            <a href="/" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              Back Home
+            </a>
+        </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

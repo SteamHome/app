@@ -1,0 +1,5 @@
+.vagrant/
+*.box
+node_modules/
+npm-debug.log
+conf.json

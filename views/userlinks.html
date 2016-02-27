@@ -1,0 +1,148 @@
+{% extends 'layout.html' %}
+
+{% block title %}&middot; User Links{% endblock %}
+{% block bodytags %}class="userlinks"{% endblock %}
+
+{% block content %}
+
+<div class="welcome mdl-typography--text-center">
+  <h4 class="">Save links to be displayed for every game</h4>
+
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small ">
+      <div class="mdl-card__supporting-text">
+        These links will display on your homepage no matter what game you're currently playing. At this time, you can save up to 5 links
+      </div>
+    </div>
+
+    {% if !user %}
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small login-card">
+      <a class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" href="/auth/steam">
+        <i class="material-icons mdl-color-text--white" role="presentation">keyboard_arrow_right</i>
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
+      </a>
+      <div class="mdl-card__supporting-text ">
+        You must sign in with Steam to save personal links
+      </div>
+    </div>
+    {% else %}
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp ">
+      <div class="mdl-card__supporting-text">
+        <form class="mdl-grid" id="userlinksForm">
+        {% if links %}
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink0-title" value="{{Object.keys(links[0])}}" 
+            placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google" />
+            <label class="mdl-textfield__label" for="userlink0-title">Link 1 Title</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink0" value="{{links[0][Object.keys(links[0])]}}" 
+            placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://google.com" />
+            <label class="mdl-textfield__label" for="userlink0">Link 1 URL</label>
+          </div><br><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink1-title" value="{{Object.keys(links[1])}}" />
+            <label class="mdl-textfield__label" for="userlink1-title">Link 1 Title</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink1" value="{{links[1][Object.keys(links[1])]}}" />
+            <label class="mdl-textfield__label" for="userlink1">Link 2 URL</label>
+          </div><br><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink2-title" value="{{Object.keys(links[2])}}" />
+            <label class="mdl-textfield__label" for="userlink2-title">Link 3 Title</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink2" value="{{links[2][Object.keys(links[2])]}}" />
+            <label class="mdl-textfield__label" for="userlink2">Link 3 URL</label>
+          </div><br><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink3-title" value="{{Object.keys(links[3])}}" />
+            <label class="mdl-textfield__label" for="userlink3-title">Link 4 Title</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink3" value="{{links[3][Object.keys(links[3])]}}" />
+            <label class="mdl-textfield__label" for="userlink3">Link 4 URL</label>
+          </div><br><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink4-title" value="{{Object.keys(links[4])}}" />
+            <label class="mdl-textfield__label" for="userlink4-title">Link 5 Title</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+            <input class="mdl-textfield__input" type="text" id="userlink4" value="{{links[4][Object.keys(links[4])]}}" />
+            <label class="mdl-textfield__label" for="userlink4">Link 5 URL</label>
+          </div><br><br>
+          {% else %}
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink0-title" 
+              placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google" />
+              <label class="mdl-textfield__label" for="userlink0-title">Link 1 Title</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink0" 
+              placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://google.com" />
+              <label class="mdl-textfield__label" for="userlink0">Link 1 URL</label>
+            </div><br><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink1-title" />
+              <label class="mdl-textfield__label" for="userlink1-title">Link 1 Title</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink1" />
+              <label class="mdl-textfield__label" for="userlink1">Link 2 URL</label>
+            </div><br><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink2-title" />
+              <label class="mdl-textfield__label" for="userlink2-title">Link 3 Title</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink2" />
+              <label class="mdl-textfield__label" for="userlink2">Link 3 URL</label>
+            </div><br><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink3-title" />
+              <label class="mdl-textfield__label" for="userlink3-title">Link 4 Title</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink3" />
+              <label class="mdl-textfield__label" for="userlink3">Link 4 URL</label>
+            </div><br><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink4-title" />
+              <label class="mdl-textfield__label" for="userlink4-title">Link 5 Title</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--6-col">
+              <input class="mdl-textfield__input" type="text" id="userlink4" />
+              <label class="mdl-textfield__label" for="userlink4">Link 5 URL</label>
+            </div><br><br>
+          {% endif %}
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              submit Links
+          </button><div class="status"></div>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+
+

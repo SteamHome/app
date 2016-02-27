@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+{% block title %}&middot; Suggest Links{% endblock %}
+{% block bodytags %}class="suggest"{% endblock %}
+
+{% block content %}
+
+<div class="welcome mdl-typography--text-center">
+  <h4 class="">Suggest links for your favorite games</h4>
+
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small">
+      <div class="mdl-card__supporting-text">
+        SteamHome is built to support any game on Steam. However, there are way more than 5,000 games and apps available, and there's no way I could become familiar with each title and its respective community. I've done my best to get SteamHome started with the most popular titles and <em>what seems like the most relevent links</em> for each title.
+        <br><br>
+        You guys know more about your favorite game than I can hope to, but that doesn't mean SteamHome can't be uniquely tailored for it. So go ahead, suggest a few of the best resources for your favorite games!
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small ">
+      <div class="mdl-card__supporting-text">
+        If you're familar with Github, feel free to send in Pull Requests to the <a href="http://gamelinks.steamho.me/">gamelinks repo</a>. This is currently the fastest way for me to manage link suggestions
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small ">
+      <div class="mdl-card__supporting-text">
+        I have plans for a better integrated link suggestion tool, but for now you can suggest links via <a href="https://reddit.com/r/steamhome">r/SteamHome</a> or <a href="https://github.com/steamhome/gamelinks">Github</a>
+      </div>
+    </div>
+
+    {% if !user %}
+{#     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-card__small login-card">
+      <a class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent" href="/auth">
+        <i class="material-icons mdl-color-text--white" role="presentation">keyboard_arrow_right</i>
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
+      </a>
+      <div class="mdl-card__supporting-text ">
+        You must sign in with Steam to suggest links
+      </div>
+    </div> #}
+    {% else %}
+{#     <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp ">
+      <div class="mdl-card__supporting-text">
+        You may suggest up to three links per game a day
+        <form action="#">
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            <input class="mdl-textfield__input" type="text" id="suggestLink1" />
+            <label class="mdl-textfield__label" for="suggestLink1">Suggested Link</label>
+          </div><br><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            <input class="mdl-textfield__input" type="text" id="suggestLink2" />
+            <label class="mdl-textfield__label" for="suggestLink2">Suggested Link</label>
+          </div><br><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            <input class="mdl-textfield__input" type="text" id="suggestLink3" />
+            <label class="mdl-textfield__label" for="suggestLink3">Suggested Link</label>
+          </div>
+
+          <br><br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label suggestAppID">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="suggestAppID" value="{{appid}}"/>
+            <label class="mdl-textfield__label" for="suggestAppID">Steam AppID</label>
+            <span class="mdl-textfield__error">Input is not a number!</span>
+          </div>
+
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              Submit Links
+          </button>
+
+        </form>
+      </div>
+    </div> #}
+    {% endif %}
+  </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+
+
