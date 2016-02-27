@@ -24,7 +24,7 @@ cradle.setup({
     cache: true,
     raw: false,
     forceSave: true,
-    auth: { username: 'admin', password: conf.couch_pass}
+    auth: { username: conf.couch_user, password: conf.couch_pass}
   });
 
 var c = new(cradle.Connection)();
