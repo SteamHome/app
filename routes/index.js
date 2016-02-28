@@ -133,26 +133,27 @@ function renderHome(userid, links, req, res, next){
   s.getPlayerSummaries({
     steamids: userid,
     callback: function(err, data) {
-      if (process.env.NODE_ENV === 'development') console.log(data.response.players[0])
+      steam = data.response.players[0];
+      if (process.env.NODE_ENV === 'development') console.log(steam)
       if(err){
         res.render('error', { error: 'summary', user: req.user}); return;
       }
       // else{
-        else if(data.response.players[0].communityvisibilitystate != 3) {
-          res.render('usererror', { error: 'profileState', user: req.user, steam: data.response.players[0] });
+        else if(steam.communityvisibilitystate != 3) {
+          res.render('usererror', { error: 'profileState', user: req.user, steam: steam });
         }
         else {
           var reg = /steamcommunity.com\/(.*)\//;
-          matches = reg.exec(data.response.players[0].profileurl);
-          res.render('home', { user: req.user, steam: data.response.players[0], profileurl: matches[1], links: links });
+          matches = reg.exec(steam.profileurl);
+          res.render('home', { user: req.user, steam: steam, profileurl: matches[1], links: links });
           keenClient.addEvent('render', {
             'app': {
-              'id': data.response.players[0].gameid,
-              'name': data.response.players[0].gameextrainfo
+              'id': steam.gameid,
+              'name': steam.gameextrainfo
             },
             'user': {
-              'steamid': data.response.players[0].steamid,
-              'profilestate': data.response.players[0].profilestate
+              'steamid': steam.steamid,
+              'profilestate': steam.profilestate
             },
             'agent': {
               'browser': req.headers['user-agent'],
