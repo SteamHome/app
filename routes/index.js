@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var cradle = require('cradle');
+var keen = require('keen-js');
 var conf = require('../conf.json');
 
 
@@ -13,6 +14,10 @@ cradle.setup({
   });
 var db = new(cradle.Connection)().database('users');
 
+var keenClient = new keen({
+  projectId: conf.keen_id,
+  writeKey: conf.keen_write
+});
 
 String.prototype.includes = function() {'use strict';
     return String.prototype.indexOf.apply(this, arguments) !== -1;
@@ -140,6 +145,38 @@ function renderHome(userid, links, req, res, next){
           var reg = /steamcommunity.com\/(.*)\//;
           matches = reg.exec(data.response.players[0].profileurl);
           res.render('home', { user: req.user, steam: data.response.players[0], profileurl: matches[1], links: links });
+          keenClient.addEvent('render', {
+            'app': {
+              'id': data.response.players[0].gameid,
+              'name': data.response.players[0].gameextrainfo
+            },
+            'user': {
+              'steamid': data.response.players[0].steamid,
+              'profilestate': data.response.players[0].profilestate
+            },
+            'agent': {
+              'browser': req.headers['user-agent'],
+              'ip': req.ip
+            },
+            'keen': {
+              'addons': [
+                {
+                  'name': 'keen:ip_to_geo',
+                  'input': { 'ip': 'agent.ip' },
+                  'output': 'ip_geo'
+                },
+                {
+                  'name': 'keen:ua_parser',
+                  'input': { 'ua_string': 'agent.browser' },
+                  'output': 'ua_details'
+                }
+              ]
+            }
+
+          }, function(err, resp){
+            if(err) console.log('Keen Err:', err);
+            else { if (process.env.NODE_ENV === 'development') console.log('Keen:', resp) }
+          });
         }
       // }
     }
