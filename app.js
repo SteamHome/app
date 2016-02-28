@@ -6,6 +6,7 @@ var express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
+    fs = require('fs'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     passport = require('passport'),
@@ -99,7 +100,11 @@ swig.setDefaults({ cache: false });
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+if (app.get('env') === 'development') app.use(logger('dev'));
+else {
+  var logStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
+  app.use(logger('combined', {stream: logStream}));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

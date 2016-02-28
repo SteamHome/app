@@ -128,7 +128,7 @@ function renderHome(userid, links, req, res, next){
   s.getPlayerSummaries({
     steamids: userid,
     callback: function(err, data) {
-      console.log(data.response.players[0])
+      if (process.env.NODE_ENV === 'development') console.log(data.response.players[0])
       if(err){
         res.render('error', { error: 'summary', user: req.user}); return;
       }
