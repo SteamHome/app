@@ -1,0 +1,22 @@
+{
+  "apps" : [
+    {
+      "name"      : "SteamHome",
+      "script"    : "npm start",
+      "env_production" : {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+
+  "deploy" : {
+    "production" : {
+      "user" : "steamhome",
+      "host" : "steamho.me",
+      "ref"  : "origin/master",
+      "repo" : "git@gitlab.com:steamhome/app.git",
+      "path" : "/var/www/steamhome",
+      "post-deploy" : "npm install ; pm2 startOrRestart ecosystem.json --env production"
+    }
+  }
+}
