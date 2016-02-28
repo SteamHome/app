@@ -2,7 +2,7 @@
   "apps" : [
     {
       "name"      : "SteamHome",
-      "script"    : "npm start",
+      "script"    : "bin/www",
       "env_production" : {
         "NODE_ENV": "production"
       }
