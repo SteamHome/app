@@ -129,19 +129,19 @@ function renderHome(userid, links, req, res, next){
     steamids: userid,
     callback: function(err, data) {
       console.log(data.response.players[0])
-      // if(err){
-      //   res.render('error', { error: 'summary', user: req.user}); return;
-      // }
+      if(err){
+        res.render('error', { error: 'summary', user: req.user}); return;
+      }
       // else{
-      //   if(data.response.players[0].communityvisibilitystate != 3) {
-      //     res.render('usererror', { error: 'profileState', user: req.user, steam: data.response.players[0] });
-      //   }
-      //   else {
+        else if(data.response.players[0].communityvisibilitystate != 3) {
+          res.render('usererror', { error: 'profileState', user: req.user, steam: data.response.players[0] });
+        }
+        else {
           var reg = /steamcommunity.com\/(.*)\//;
           matches = reg.exec(data.response.players[0].profileurl);
           res.render('home', { user: req.user, steam: data.response.players[0], profileurl: matches[1], links: links });
-    //     }
-    //   }
+        }
+      // }
     }
   });
 }

@@ -1,13 +1,46 @@
 {% extends 'layout.html' %}
 
+{% block title %}&middot; Error!{% endblock %}
+{% block bodytags %}class="error"{% endblock %}
+
+{% block userNav %}
+{% endblock %}
+
 {% block content %}
-There was an error!
-  {% if error == 'profileState' %}
-    Looks like your profile isn't set to public!
-  {% elseif error == 'profileid' %}
-    Looks like that isn't a valid vanity url!
-  {% else %}
-    And we have no idea what happened!
-  {% endif %}
+
+<div class="welcome">
+  <h4 class="mdl-typography--text-center">SteamHome has encountered an error.</h4>
+
+  <div class="mdl-grid">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__supporting-text">
+          <h2 class="mdl-card__title-text">There was an error retrieving your information from Steam:</h2><br><br>
+          {% if error == 'profileState' %}
+            Looks like your profile isn't set to public!
+          {% elseif error == 'profileid' %}
+            Looks like that isn't a valid vanity url!
+          {% else %}
+            And we have no idea what happened!
+          {% endif %}<br><br>
+        </div>
+        <div class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+            <a href="/auth" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              Please logout to try again
+            </a>
+        </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
 
 {% endblock %}
