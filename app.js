@@ -14,18 +14,18 @@ var express = require('express'),
     steam = require('steam-web'),
     swig = require('swig'),
     SteamStrategy = require('passport-steam').Strategy,
-    conf = require('./conf.json');
+    conf = require('./config.js');
 
 Error.stackTraceLimit = 15;
 
-steamid = require('steamidconvert')(conf.steam_key);
+steamid = require('steamidconvert')(conf.steam.key);
 
 cradle.setup({
     host: 'localhost',
     cache: true,
     raw: false,
     forceSave: true,
-    auth: { username: conf.couch_user, password: conf.couch_pass}
+    auth: { username: conf.couch.user, password: conf.couch.pass}
   });
 
 var c = new(cradle.Connection)();
@@ -41,9 +41,9 @@ var auth = require('./routes/auth');
 var app = express();
 
 passport.use(new SteamStrategy({
-    returnURL: conf.steam_return,
-    realm: conf.steam_realm,
-    apiKey: conf.steam_key
+    returnURL: conf.steam.returnURL,
+    realm: conf.steam.realm,
+    apiKey: conf.steam.key
   },
   function(identifier, profile, done) {
     console.log(identifier, profile);
@@ -74,7 +74,7 @@ passport.use(new SteamStrategy({
 ));
 
 s = new steam({
-  apiKey: conf.steam_key,
+  apiKey: conf.steam.key,
   format: 'json'
 });
 

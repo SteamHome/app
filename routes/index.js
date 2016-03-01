@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var cradle = require('cradle');
 var keen = require('keen-js');
-var conf = require('../conf.json');
+var conf = require('../config.js');
 
 
 cradle.setup({
@@ -10,13 +10,13 @@ cradle.setup({
     cache: true,
     raw: false,
     forceSave: true,
-    auth: { username: conf.couch_user, password: conf.couch_pass}
+    auth: { username: conf.couch.user, password: conf.couch.pass}
   });
 var db = new(cradle.Connection)().database('users');
 
 var keenClient = new keen({
-  projectId: conf.keen_id,
-  writeKey: conf.keen_write
+  projectId: conf.keen.id,
+  writeKey: conf.keen.write
 });
 
 String.prototype.includes = function() {'use strict';
