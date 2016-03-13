@@ -1,0 +1,22 @@
+build:
+  image: node
+  commands:
+    - npm i --dev
+    - npm test
+  enviroment:
+    - STEAM_KEY="$$STEAM_KEY"
+    - STEAM_RETURN="$$STEAM_RETURN"
+    - STEAM_REALM="$$STEAM_REALM"
+    - COUCH_USER="$$COUCH_USER"
+    - COUCH_PASS="$$COUCH_PASS"
+    - KEEN_ID="$$KEEN_ID"
+    - KEEN_WRITE="$$KEEN_WRITE"
+    - COOKIE="$$COOKIE"
+
+
+compose:
+  database:
+    image: couchdb
+    enviroment:
+      - COUCH_USER=$$COUCH_USER
+      - COUCH_PASS=$$COUCH_PASS
