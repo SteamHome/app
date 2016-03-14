@@ -2,11 +2,12 @@ build:
   image: node
   commands:
     - npm i --dev
-    - npm install -g casperjs
-    - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+    - npm install -g casperjs pm2
+    - wget -q https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
     - tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
     - mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
     - npm test
+    - pm2 deploy production
   environment:
     - ENV=development
     - STEAM_KEY=$$STEAM_KEY
@@ -18,8 +19,14 @@ build:
     - KEEN_ID=$$KEEN_ID
     - KEEN_WRITE=$$KEEN_WRITE
     - COOKIE=$$COOKIE
-
+  when:
+      event: push
 
 compose:
   database:
     image: couchdb
+
+cache:
+  mount:
+    - node_modules
+    - .git
