@@ -106,14 +106,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Unable to login to CouchDB to create sessions in CI
+// However, login succeeds for cradle login in CI..
+if(process.env.CI){ ss = sessionstore.createSessionStore() }
+else ss = sessionstore.createSessionStore({ type: 'couchdb' })
 app.use(session({
     secret: conf.cookie,
     resave: true,
     saveUninitialized: true,
-    store: sessionstore.createSessionStore({
-      type: 'couchdb'
-    })
+    store: ss
 }));
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session

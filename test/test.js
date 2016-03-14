@@ -70,7 +70,7 @@ describe('Browser Tests', function(){
     steamClient.on('connected', function(){
       steamUser.logOn({
         account_name: 'automatedtest',
-        password: process.env.STEAMPASS
+        password: process.env.STEAM_PASS
       });
     });
 
@@ -78,7 +78,9 @@ describe('Browser Tests', function(){
       console.log('✓ Logged into Steam')
       steamFriends.setPersonaState(Steam.EPersonaState.Online);
       steamUser.gamesPlayed({'games_played': {'game_id': '570'} })
-    })
+    });
+
+    steamClient.on('error', function(e){ console.log('Steam Error:\n',e) })
 
     console.log('.. waiting 30 seconds')
     setTimeout(function () {
